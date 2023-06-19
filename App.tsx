@@ -1,13 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { Text, View } from "react-native";
 
 export default function App() {
-  
+
+  //Charleyyy
   return (
-    <View className="flex-1 items-center justify-center bg-slate-700">
-      <Text>An Inventory Project App</Text>
-      <StatusBar style="auto" />
+    <View>
+      <View className="flex items-center justify-center bg-black h-screen" >
+        <Text className='text-white text-3xl'>An Inventory Project App </Text>
+        <StatusBar style="auto" />
+      </View>
     </View>
   );
 }
+
+console.log("Please work")
+
 

@@ -3,9 +3,7 @@
   "compilerOptions": {
     "strict": true,
     //"allowJs": true,
-    "target": "ES6"
-    
-  },
-
-  "typeRoots": ["./types"]
+    "target": "ES6",
+    "typeRoots": ["./types"] 
+  }
 }
