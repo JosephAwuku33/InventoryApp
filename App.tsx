@@ -6,14 +6,12 @@ export default function App() {
   //Charleyyy
   return (
     <View>
-      <View className="flex items-center justify-center bg-black h-screen" >
+      <View className="flex items-center justify-center bg-primary h-screen" >
         <Text className='text-white text-3xl'>An Inventory Project App </Text>
         <StatusBar style="auto" />
       </View>
     </View>
   );
 }
-
-console.log("Please work")
 
 
