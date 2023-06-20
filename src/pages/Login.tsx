@@ -4,7 +4,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import React from "react";
 import {  TextInput } from "react-native-gesture-handler";
 
-function Login(){
+
+function Login({ navigation }){
     return (
        <SafeAreaView className="bg-primary"  >
         <View className= " bg-primary h-2/6 "  >
@@ -20,7 +21,7 @@ function Login(){
                     <Text  className="text-primary text-lg font-bold">Login</Text>
                     <View className=" w-full bg-primary h-[2]"></View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                     <Text className="text-primary text-lg font-bold">SignUp</Text>
                 </TouchableOpacity>
             </View>
@@ -38,7 +39,7 @@ function Login(){
                             Login
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className="">
+                    <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                         <Text style={{fontFamily: "Poppins-Regular"}} className="text-primary text-sm">
                             Don’t have an account? 
                         </Text>
