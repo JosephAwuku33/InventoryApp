@@ -3,10 +3,38 @@ import {  TextInput } from "react-native-gesture-handler";
 import React, {useState} from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import { FIREBASE_API_KEY } from "@env";
 
 
 
 function SignUp({ navigation }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [validationMessage, setValidationMessage] = useState('');
+
+    let validateAndSet = (value, valueToCompare, setValue) => {
+      value !== valueToCompare ? setValidationMessage('Passwords Do not Match') 
+      : setValidationMessage('');
+      setValue(value);
+    }
+
+    async function createAccount(){
+        email === "" || password === "" 
+        ? setValidationMessage('required field missing')
+        : ''
+
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          navigation.navigate('HomeScreen');
+        } catch (error: any){
+          setValidationMessage(error.message);
+        }
+    }
+
+
     return (
       <SafeAreaView className="bg-primary"  >
         <View className= " bg-primary h-1/4 "  >
@@ -33,14 +61,24 @@ function SignUp({ navigation }) {
             <KeyboardAwareScrollView >
                 <View className="flex flex-col justify-center p-4 gap-4 mb-2 ">
                     <Text className="text-primary text-lg ml-5 font-semibold">Enter Email</Text>
-                    <TextInput className="bg-white rounded-full border-2 border-primary p-1 text-center" keyboardType={"email-address"}/>
+                    <TextInput className="bg-white rounded-full border-2 border-primary p-1 text-center" 
+                    keyboardType={"email-address"}
+                    onChangeText={(text) => setEmail(text)}/>
+                    
                     <Text className="text-primary text-lg ml-5 font-semibold">Create Password</Text>
-                    <TextInput secureTextEntry={true} className="bg-white rounded-full border-2 border-primary p-1 text-center" />
+                    <TextInput secureTextEntry={true} 
+                    className="bg-white rounded-full border-2 border-primary p-1 text-center"
+                    onChangeText={(value) => validateAndSet(value, confirmPassword, setPassword)} />
+                    
                     <Text className="text-primary text-lg ml-5 font-semibold">Confirm Password</Text>
-                    <TextInput secureTextEntry={true} className="bg-white rounded-full border-2 border-primary p-1 text-center" />
+                    <TextInput secureTextEntry={true} 
+                    className="bg-white rounded-full border-2 border-primary p-1 text-center" 
+                    onChangeText={(value) => validateAndSet(value, password, setConfirmPassword)}/>
+                
                 </View>
                 <View className="flex flex-col justify-center items-center p-2 gap-3 mt-1">
-                    <TouchableOpacity className="bg-primary px-20 py-2 rounded-full">
+                    <Text className="text-black text-sm mt-2">{validationMessage}</Text>
+                    <TouchableOpacity onPress={createAccount} className="bg-primary px-20 py-2 rounded-full">
                         <Text className="text-center text-white text-xl font-semibold">
                             Sign Up
                         </Text>

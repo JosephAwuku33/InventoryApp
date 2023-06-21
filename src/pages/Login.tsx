@@ -1,11 +1,31 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React from "react";
 import {  TextInput } from "react-native-gesture-handler";
-
+import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 function Login({ navigation }){
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [validationMessage, setValidationMessage] = useState('');
+
+    async function login(){
+        if (email === " " || password === ""){
+            setValidationMessage('required field missing');
+            return;
+        }
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigation.navigate('HomeScreen')
+            
+        } catch (error: any){
+            setValidationMessage(error.message);
+        }
+    }
+
     return (
        <SafeAreaView className="bg-primary"  >
         <View className= " bg-primary h-2/6 "  >
@@ -29,21 +49,29 @@ function Login({ navigation }){
             <KeyboardAwareScrollView >
                 <View className="flex flex-col justify-center p-4 gap-4 mb-2 ">
                     <Text className="text-primary text-lg ml-5 font-semibold">Email</Text>
-                    <TextInput className="bg-white rounded-full border-2 border-primary p-1 text-center" keyboardType={"email-address"}/>
+                    <TextInput className="bg-white rounded-full border-2 border-primary p-1 text-center" 
+                    keyboardType={"email-address"} onChangeText={(text) => setEmail(text)}/>
+                   
                     <Text className="text-primary text-lg ml-5 font-semibold">Password</Text>
-                    <TextInput secureTextEntry={true} className="bg-white rounded-full border-2 border-primary p-1 text-center" />
+                    <TextInput secureTextEntry={true} 
+                    className="bg-white rounded-full border-2 border-primary p-1 text-center"
+                    onChangeText={(text) => setPassword(text)} />
+                
                 </View>
+                
                 <View className="flex flex-col justify-center items-center p-2 gap-3 mt-1">
-                    <TouchableOpacity className="bg-primary px-20 py-2 rounded-full">
+                    <Text className="mt-3 text-black text-sm">{validationMessage}</Text>
+                    <TouchableOpacity onPress={login} className="bg-primary px-20 py-2 rounded-full">
                         <Text className="text-center text-white text-xl font-semibold">
                             Login
                         </Text>
                     </TouchableOpacity>
+                    
                     <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                        <Text style={{fontFamily: "Poppins-Regular"}} className="text-primary text-sm">
+                        <Text style={{fontFamily: 'Poppins-Regular'}} className="text-primary text-sm">
                             Don’t have an account? 
                         </Text>
-                        <Text style={{fontFamily: "Poppins-Regular"}} className="text-primary text-sm text-center">
+                        <Text style={{fontFamily: 'Poppins-Regular'}} className="text-primary text-sm text-center">
                             Sign up here
                         </Text>
                      </TouchableOpacity>

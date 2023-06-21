@@ -9,7 +9,7 @@ export default function UserStack() {
   return (
     <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen}/>
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
     </NavigationContainer>
   )

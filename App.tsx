@@ -1,19 +1,21 @@
 import 'react-native-gesture-handler';
 import RootNavigation from './src/navigation';
 import './config/firebase';
-import { useEffect } from "react"
-import * as Font from "expo-font";
 
-async function loadCustomFont(){
-   await Font.loadAsync({
-      'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-    });
-}
+//import { useEffect } from "react"
+//import * as Font from "expo-font";
+import { useFonts } from "expo-font";
+
+
  
 export default function App() {
-   useEffect(() => {
-      loadCustomFont();
-    }, []);
+   let [fontsLoaded] = useFonts({
+      'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf')
+    });
+  
+    if (!fontsLoaded) {
+      return null;
+    }
 
    return <RootNavigation/>
 }

@@ -4,6 +4,7 @@
     "strict": false,
     "allowJs": true,
     "target": "ES6",
-    "typeRoots": ["./types"] 
+    "typeRoots": ["./types", "./node_modules/@types"] 
   }
 }
+

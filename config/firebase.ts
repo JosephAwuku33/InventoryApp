@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN } from "@env";
 import { FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET } from "@env";
 import { FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID } from "@env";
@@ -18,3 +19,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
