@@ -22,7 +22,7 @@ function Login({ navigation }){
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            navigation.navigate('HomeScreen');
+            //navigation.navigate('Main');
             
         } catch (error: any){
             setValidationMessage(error.message);

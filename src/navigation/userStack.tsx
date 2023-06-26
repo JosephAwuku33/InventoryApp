@@ -1,13 +1,18 @@
 import React from 'react';
-import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from '../pages/Home';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Inventory from "../pages/Inventory";
+import Transactions from "../pages/Transactions";
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function UserStack() {
   return (
-        <Stack.Navigator>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
-        </Stack.Navigator>
+    <Drawer.Navigator initialRouteName="Home" >
+        <Drawer.Screen name="Home" component={HomeScreen}/>
+        <Drawer.Screen name="Inventory" component={Inventory} />
+        <Drawer.Screen name="Transactions" component={Transactions} />
+    </Drawer.Navigator>
   )
+
 }

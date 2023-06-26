@@ -27,7 +27,7 @@ function SignUp({ navigation }) {
 
         try {
           await createUserWithEmailAndPassword(auth, email, password);
-          navigation.navigate('HomeScreen');
+          //navigation.navigate('Main');
         } catch (error: any){
           setValidationMessage(error.message);
         }
