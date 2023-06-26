@@ -5,15 +5,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import { FIREBASE_API_KEY } from "@env";
 
 
 
 function SignUp({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [validationMessage, setValidationMessage] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [validationMessage, setValidationMessage] = useState<string>('');
 
     let validateAndSet = (value, valueToCompare, setValue) => {
       value !== valueToCompare ? setValidationMessage('Passwords Do not Match') 
