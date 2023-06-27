@@ -10,7 +10,8 @@ export default function Transactions() {
   return (
     <Tab.Navigator initialRouteName="BuyTab" screenOptions={{
       tabBarLabelStyle: {
-       color: "#ffffff"
+       color: "#ffffff",
+       fontFamily: "Poppins-Regular",
       },
       tabBarStyle: {
        backgroundColor: "#552619"

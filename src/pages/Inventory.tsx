@@ -9,7 +9,8 @@ export default function Inventory() {
   return (
       <Tab.Navigator initialRouteName="AllTab" screenOptions={{
          tabBarLabelStyle: {
-          color: "#ffffff"
+          color: "#ffffff",
+          fontFamily: 'Poppins-Regular',
          },
          tabBarStyle: {
           backgroundColor: "#552619"
