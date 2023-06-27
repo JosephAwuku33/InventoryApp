@@ -23,6 +23,9 @@ export default function UserStack() {
               color={(color = "#552619")}
             />
           ),
+          headerTintColor: "#ffffff",
+          headerStyle: { backgroundColor: "#552619" },
+          drawerLabelStyle: { color: "#552619" },
         }}
       />
       <Drawer.Screen
@@ -36,6 +39,9 @@ export default function UserStack() {
               color={(color = "#552619")}
             />
           ),
+          headerTintColor: "#ffffff",
+          headerStyle: { backgroundColor: "#552619" },
+          drawerLabelStyle: { color: "#552619" },
         }}
       />
       <Drawer.Screen
@@ -49,6 +55,9 @@ export default function UserStack() {
               color={(color = "#552619")}
             />
           ),
+          headerTintColor: "#ffffff",
+          headerStyle: { backgroundColor: "#552619" },
+          drawerLabelStyle: { color: "#552619" },
         }}
       />
     </Drawer.Navigator>
