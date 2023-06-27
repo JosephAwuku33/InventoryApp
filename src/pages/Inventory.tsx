@@ -6,7 +6,7 @@ import NearExpiryTab from "../components/screen_components/NearExpiryTab";
 const Tab = createMaterialTopTabNavigator();
 
 export default function Inventory() {
-  return(
+  return (
       <Tab.Navigator initialRouteName="AllTab" screenOptions={{
          tabBarLabelStyle: {
           color: "#ffffff"
