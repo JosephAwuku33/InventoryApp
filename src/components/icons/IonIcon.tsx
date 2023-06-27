@@ -7,12 +7,13 @@ interface CustomIconProps {
   color: string;
 }
 
-const CustomIcon: FC<CustomIconProps> = ({ name, size, color }) => {
+const CustomIonIcon: FC<CustomIconProps> = ({ name, size, color }) => {
   return (
     <>
-      <Ionicons name={name} size={size} color={color} />
+      <Ionicons name={name} size={size} color={color} />  
     </>
   );
 };
 
-export default CustomIcon;
+
+export default CustomIonIcon;
