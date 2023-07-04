@@ -23,6 +23,8 @@ export default function BuyTab() {
             placeholder="Address"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
           />
+          <View className=" flex items-center border-primary border-2 mb-4"/>
+          
         </View>
       </KeyboardAwareScrollView>
     </View>
