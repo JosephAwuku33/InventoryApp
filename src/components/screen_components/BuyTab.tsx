@@ -9,8 +9,8 @@ export default function BuyTab() {
         <Text style={{ fontFamily: "Poppins-Regular" }}>Buy Items</Text>
       </View>
       <KeyboardAwareScrollView>
-        <View className="flex flex-col justify-center p-6 gap-3 mb-2">
-          <View></View>
+        <View className="flex flex-col justify-center p-6 gap-4 mb-2">
+          <View className=" w-full border-primary border-2"/>
           <TextInput
             placeholder="Customer Name"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
