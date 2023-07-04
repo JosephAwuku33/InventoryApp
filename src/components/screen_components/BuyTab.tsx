@@ -10,13 +10,17 @@ export default function BuyTab() {
       </View>
       <KeyboardAwareScrollView>
         <View className="flex flex-col justify-center p-6 gap-6 mb-2">
-          <View className=" w-full border-primary border-2 mb-2"/>
+          <View className=" flex items-center border-primary border-2 mb-2"/>
           <TextInput
             placeholder="Customer Name"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
           />
           <TextInput
-            placeholder="Customer Name"
+            placeholder="Phone Number"
+            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+          />
+          <TextInput
+            placeholder="Address"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
           />
         </View>
