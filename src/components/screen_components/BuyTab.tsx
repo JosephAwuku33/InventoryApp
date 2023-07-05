@@ -44,6 +44,19 @@ export default function BuyTab() {
               setSelected={(val) => setSelected(val)}
             />
           </View>
+          <View className="flex items-center justify-center">
+            <Text style={{ fontFamily: "Poppins-Regular" }}>
+              Select a product to view details
+            </Text>
+          </View>
+          <TextInput
+            placeholder="Quantity"
+            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+          />
+           <TextInput
+            placeholder="Expiry Date"
+            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+          />
         </View>
       </KeyboardAwareScrollView>
     </View>
