@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
 
@@ -17,11 +17,11 @@ export default function BuyTab() {
   const [selected, setSelected] = useState("");
 
   return (
-    <View className="bg-secondary h-screen">
-      <View className="flex items-center mt-3">
-        <Text style={{ fontFamily: "Poppins-Regular" }}>Buy Items</Text>
-      </View>
-      <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView>
+      <View className="bg-secondary h-screen">
+        <View className="flex items-center mt-3">
+          <Text style={{ fontFamily: "Poppins-Regular" }}>Buy Items</Text>
+        </View>
         <View className="flex flex-col justify-center p-6 gap-6 mb-2">
           <View className=" flex items-center border-primary border-2 mb-2" />
           <TextInput
@@ -53,12 +53,27 @@ export default function BuyTab() {
             placeholder="Quantity"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
           />
-           <TextInput
+          <TextInput
             placeholder="Expiry Date"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
           />
+          <View className="flex items-center justify-center">
+            <TouchableOpacity>
+              <Text
+                style={{ fontFamily: "Poppins-Regular" }}
+                className="text-center text-primary text-sm"
+              >
+                + Add Product
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity className="bg-primary mt-2 px-20 py-2 rounded-full">
+              <Text className="text-center text-white text-xl font-semibold ">
+                Buy
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </KeyboardAwareScrollView>
-    </View>
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
