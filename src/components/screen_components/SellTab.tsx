@@ -14,7 +14,7 @@ export default function SellTab() {
     { key: "7", value: "Drinks" },
   ];
 
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState<string>("");
 
   return (
     <KeyboardAwareScrollView>
