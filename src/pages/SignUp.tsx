@@ -6,14 +6,18 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 
-function SignUp({ navigation }) {
+function SignUp({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [validationMessage, setValidationMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  let validateAndSet = (value, valueToCompare, setValue) => {
+  let validateAndSet = (
+    value: string,
+    valueToCompare: string,
+    setValue: string | any
+  ) => {
     value !== valueToCompare
       ? setValidationMessage("Passwords Do not Match")
       : setValidationMessage("");
