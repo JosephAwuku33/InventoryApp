@@ -14,7 +14,7 @@ export default function BuyTab() {
     { key: "7", value: "Drinks" },
   ];
 
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState<string>("");
 
   return (
     <KeyboardAwareScrollView>
@@ -41,7 +41,7 @@ export default function BuyTab() {
             <SelectList
               data={data}
               save="value"
-              setSelected={(val) => setSelected(val)}
+              setSelected={(val: string) => setSelected(val)}
             />
           </View>
           <View className="flex items-center justify-center">

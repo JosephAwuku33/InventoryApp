@@ -41,7 +41,7 @@ export default function SellTab() {
             <SelectList
               data={data}
               save="value"
-              setSelected={(val) => setSelected(val)}
+              setSelected={(val: string) => setSelected(val)}
             />
           </View>
           <View className="flex items-center justify-center">
