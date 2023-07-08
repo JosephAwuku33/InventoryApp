@@ -22,51 +22,52 @@ export default function BuyTab() {
     expiry_date: Date;
   }
 
+  const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const customerCollectionRef = collection(db, "customer");
 
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const inventoryCollectionRef = collection(db, "Inventory");
 
-  /*
-  const data = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
-
-  */
-
-  
+  const [quantity, setQuantity] = useState<number[]>([]);
 
   const [selected, setSelected] = useState<string>("");
 
   useEffect(() => {
     const getCustomers = async () => {
       const customerData = await getDocs(customerCollectionRef);
-      const customersArray = customerData.docs.map((doc) => doc.data() as Customer);
+      const customersArray = customerData.docs.map(
+        (doc) => doc.data() as Customer
+      );
       setCustomers(customersArray);
       console.log(customers);
     };
 
     const getInventory = async () => {
       const inventoryData = await getDocs(inventoryCollectionRef);
-      const inventoryItemArray = inventoryData.docs.map((doc) => doc.data() as InventoryItem);
-      setInventory(inventoryItemArray)
+      const inventoryItemArray = inventoryData.docs.map(
+        (doc) => doc.data() as InventoryItem
+      );
+      setInventory(inventoryItemArray);
       console.log(inventory);
     };
 
     getCustomers();
     getInventory();
-
   }, []);
 
-  //const customerArray: Customer[] = [];
-  //const anotherArray: string[] = [...customerArray.map((customer) => customer.name)];
+  const selectedItem = (selected: string) => {
+    setSelected(selected);
+
+    const filteredInventory = inventory.filter(
+      (item) => item.name === selected
+    );
+    const price_quantity = filteredInventory.map((item) => item.price);
+    const expiry_date = filteredInventory.map((item) => item.expiry_date);
+
+    setQuantity(price_quantity);
+  };
+
   const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
 
 
@@ -95,7 +96,7 @@ export default function BuyTab() {
             <SelectList
               data={inventorySelectList}
               save="value"
-              setSelected={(val: string) => setSelected(val)}
+              setSelected={selectedItem}
             />
           </View>
           <View className="flex items-center justify-center">
@@ -105,11 +106,15 @@ export default function BuyTab() {
           </View>
           <TextInput
             placeholder="Quantity"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            keyboardType="numeric"
+            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
+            value={quantity.toString()}
+            editable={false}
           />
           <TextInput
             placeholder="Expiry Date"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            editable={false}
+            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
           />
           <View className="flex items-center justify-center">
             <TouchableOpacity>
