@@ -7,17 +7,6 @@ import { db } from "../../../config/firebase";
 
 export default function BuyTab() {
   //data manipulation and retrieval
-
-  const data = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
-
   //An interface for handling the customer and Inventory typing
   interface Customer {
     id: string;
@@ -30,7 +19,7 @@ export default function BuyTab() {
     id: string;
     name: string;
     price: number;
-    expiry_date: any;
+    expiry_date: Date;
   }
 
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -39,6 +28,21 @@ export default function BuyTab() {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const inventoryCollectionRef = collection(db, "Inventory");
 
+  /*
+  const data = [
+    { key: "1", value: "Mobiles", disabled: true },
+    { key: "2", value: "Appliances" },
+    { key: "3", value: "Cameras" },
+    { key: "4", value: "Computers", disabled: true },
+    { key: "5", value: "Vegetables" },
+    { key: "6", value: "Diary Products" },
+    { key: "7", value: "Drinks" },
+  ];
+
+  */
+
+  
+
   const [selected, setSelected] = useState<string>("");
 
   useEffect(() => {
@@ -46,20 +50,25 @@ export default function BuyTab() {
       const customerData = await getDocs(customerCollectionRef);
       const customersArray = customerData.docs.map((doc) => doc.data() as Customer);
       setCustomers(customersArray);
-      console.table(customersArray);
+      console.log(customers);
     };
 
     const getInventory = async () => {
       const inventoryData = await getDocs(inventoryCollectionRef);
       const inventoryItemArray = inventoryData.docs.map((doc) => doc.data() as InventoryItem);
       setInventory(inventoryItemArray)
-      console.table(inventoryData);
+      console.log(inventory);
     };
 
     getCustomers();
     getInventory();
 
   }, []);
+
+  //const customerArray: Customer[] = [];
+  //const anotherArray: string[] = [...customerArray.map((customer) => customer.name)];
+  const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
+
 
   return (
     <KeyboardAwareScrollView>
@@ -84,7 +93,7 @@ export default function BuyTab() {
           <View className=" flex items-center border-primary border-2 mb-4" />
           <View>
             <SelectList
-              data={data}
+              data={inventorySelectList}
               save="value"
               setSelected={(val: string) => setSelected(val)}
             />
