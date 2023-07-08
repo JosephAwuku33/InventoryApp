@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../config/firebase";
 
 export default function BuyTab() {
+  //data manipulation and retrieval
+
   const data = [
     { key: "1", value: "Mobiles", disabled: true },
     { key: "2", value: "Appliances" },
@@ -14,7 +18,48 @@ export default function BuyTab() {
     { key: "7", value: "Drinks" },
   ];
 
+  //An interface for handling the customer and Inventory typing
+  interface Customer {
+    id: string;
+    name: string;
+    address: string;
+    phone_number: string;
+  }
+
+  interface InventoryItem {
+    id: string;
+    name: string;
+    price: number;
+    expiry_date: any;
+  }
+
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const customerCollectionRef = collection(db, "customer");
+
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const inventoryCollectionRef = collection(db, "Inventory");
+
   const [selected, setSelected] = useState<string>("");
+
+  useEffect(() => {
+    const getCustomers = async () => {
+      const customerData = await getDocs(customerCollectionRef);
+      const customersArray = customerData.docs.map((doc) => doc.data() as Customer);
+      setCustomers(customersArray);
+      console.table(customersArray);
+    };
+
+    const getInventory = async () => {
+      const inventoryData = await getDocs(inventoryCollectionRef);
+      const inventoryItemArray = inventoryData.docs.map((doc) => doc.data() as InventoryItem);
+      setInventory(inventoryItemArray)
+      console.table(inventoryData);
+    };
+
+    getCustomers();
+    getInventory();
+
+  }, []);
 
   return (
     <KeyboardAwareScrollView>
