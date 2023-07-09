@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Timestamp } from "firebase/firestore";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -31,12 +32,12 @@ export default function BuyTab() {
   const inventoryCollectionRef = collection(db, "Inventory");
 
   const [quantity, setQuantity] = useState<number[]>([]);
+  const [expiryDate, setExpiryDate] = useState<string>("");
 
   const [selected, setSelected] = useState<string>("");
 
   useEffect(() => {
     const getCustomers = async () => {
-      
       try {
         const customerData = await getDocs(customerCollectionRef);
         const customersArray = customerData.docs.map(
@@ -77,7 +78,20 @@ export default function BuyTab() {
       (item) => item.name === selected
     );
     const price_quantity = filteredInventory.map((item) => item.price);
-    const expiry_date = filteredInventory.map((item) => item.expiry_date);
+    const expiry_dated = filteredInventory.map((item) => item.expiry_date);
+    const retrievedTimeStamp = expiry_dated[0] as unknown as Timestamp;
+
+    const timeStamp = new Timestamp(
+      retrievedTimeStamp.seconds,
+      retrievedTimeStamp.nanoseconds
+    );
+
+    const date = timeStamp.toDate();
+    const year = date.getFullYear(); // Get the 4-digit year
+    const month = date.getMonth() + 1; // Get the month (0-indexed, so adding 1)
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}`;
+    console.log(formattedDate);
+    setExpiryDate(formattedDate);
 
     setQuantity(price_quantity);
   };
@@ -132,6 +146,7 @@ export default function BuyTab() {
           <TextInput
             placeholder="Expiry Date"
             editable={false}
+            value={expiryDate}
             className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
           />
           <View className="flex items-center justify-center">
