@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { SelectList } from "react-native-dropdown-select-list";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../config/firebase";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default function BuyTab() {
   //data manipulation and retrieval
@@ -22,7 +23,7 @@ export default function BuyTab() {
     expiry_date: Date;
   }
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const customerCollectionRef = collection(db, "customer");
 
@@ -35,21 +36,34 @@ export default function BuyTab() {
 
   useEffect(() => {
     const getCustomers = async () => {
-      const customerData = await getDocs(customerCollectionRef);
-      const customersArray = customerData.docs.map(
-        (doc) => doc.data() as Customer
-      );
-      setCustomers(customersArray);
-      console.log(customers);
+      
+      try {
+        const customerData = await getDocs(customerCollectionRef);
+        const customersArray = customerData.docs.map(
+          (doc) => doc.data() as Customer
+        );
+        setCustomers(customersArray);
+        console.log(customers);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     const getInventory = async () => {
-      const inventoryData = await getDocs(inventoryCollectionRef);
-      const inventoryItemArray = inventoryData.docs.map(
-        (doc) => doc.data() as InventoryItem
-      );
-      setInventory(inventoryItemArray);
-      console.log(inventory);
+      try {
+        const inventoryData = await getDocs(inventoryCollectionRef);
+        const inventoryItemArray = inventoryData.docs.map(
+          (doc) => doc.data() as InventoryItem
+        );
+        setInventory(inventoryItemArray);
+        console.log(inventory);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getCustomers();
@@ -70,10 +84,14 @@ export default function BuyTab() {
 
   const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
 
-
   return (
     <KeyboardAwareScrollView>
       <View className="bg-secondary h-screen">
+        <Spinner
+          visible={isLoading}
+          textContent={"Loading..."}
+          textStyle={{ color: "#FFF" }}
+        />
         <View className="flex items-center mt-3">
           <Text style={{ fontFamily: "Poppins-Regular" }}>Buy Items</Text>
         </View>
