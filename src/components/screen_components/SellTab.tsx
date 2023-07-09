@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
+import Spinner from "react-native-loading-spinner-overlay";
+import { useInventoryContext } from "../../context/InventoryContext";
+import useSelectedItem from "../../hooks/useSelectedItem";
 
 export default function SellTab() {
-  const data = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
-
-  const [selected, setSelected] = useState<string>("");
+  const inventoryContext = useInventoryContext();
+  const { isLoading: inventoryLoading, inventory } = inventoryContext;
+  const { quantity, expiryDate, updateSelectedItem } = useSelectedItem(inventory);
+  const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
 
   return (
     <KeyboardAwareScrollView>
+      <Spinner
+        visible={inventoryLoading}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+      />
       <View className="bg-secondary h-screen">
         <View className="flex items-center mt-3">
           <Text style={{ fontFamily: "Poppins-Regular" }}>Sell Items</Text>
@@ -39,9 +40,9 @@ export default function SellTab() {
           <View className=" flex items-center border-primary border-2 mb-4" />
           <View>
             <SelectList
-              data={data}
+              data={inventorySelectList}
               save="value"
-              setSelected={(val: string) => setSelected(val)}
+              setSelected={updateSelectedItem}
             />
           </View>
           <View className="flex items-center justify-center">
@@ -51,11 +52,15 @@ export default function SellTab() {
           </View>
           <TextInput
             placeholder="Quantity"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white text-black rounded-full border-2 border-primary p-1 text-center"
+            editable={false}
+            value={quantity.toString()}
           />
           <TextInput
             placeholder="Expiry Date"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            value={expiryDate}
+            editable={false}
+            className="bg-white text-black rounded-full border-2 border-primary p-1 text-center"
           />
           <View className="flex items-center justify-center">
             <TouchableOpacity>
