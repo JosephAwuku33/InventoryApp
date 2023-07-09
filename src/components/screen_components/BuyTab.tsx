@@ -1,108 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Timestamp } from "firebase/firestore";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../config/firebase";
 import Spinner from "react-native-loading-spinner-overlay";
+import { useInventoryContext } from "../../context/InventoryContext";
+import useSelectedItem from "../../hooks/useSelectedItem";
 
 export default function BuyTab() {
-  //data manipulation and retrieval
-  //An interface for handling the customer and Inventory typing
-  interface Customer {
-    id: string;
-    name: string;
-    address: string;
-    phone_number: string;
-  }
 
-  interface InventoryItem {
-    id: string;
-    name: string;
-    price: number;
-    expiry_date: Date;
-  }
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const customerCollectionRef = collection(db, "customer");
-
-  const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  const inventoryCollectionRef = collection(db, "Inventory");
-
-  const [quantity, setQuantity] = useState<number[]>([]);
-  const [expiryDate, setExpiryDate] = useState<string>("");
-
-  const [selected, setSelected] = useState<string>("");
-
-  useEffect(() => {
-    const getCustomers = async () => {
-      try {
-        const customerData = await getDocs(customerCollectionRef);
-        const customersArray = customerData.docs.map(
-          (doc) => doc.data() as Customer
-        );
-        setCustomers(customersArray);
-        console.log(customers);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    const getInventory = async () => {
-      try {
-        const inventoryData = await getDocs(inventoryCollectionRef);
-        const inventoryItemArray = inventoryData.docs.map(
-          (doc) => doc.data() as InventoryItem
-        );
-        setInventory(inventoryItemArray);
-        console.log(inventory);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getCustomers();
-    getInventory();
-  }, []);
-
-  const selectedItem = (selected: string) => {
-    setSelected(selected);
-
-    const filteredInventory = inventory.filter(
-      (item) => item.name === selected
-    );
-    const price_quantity = filteredInventory.map((item) => item.price);
-    const expiry_dated = filteredInventory.map((item) => item.expiry_date);
-    const retrievedTimeStamp = expiry_dated[0] as unknown as Timestamp;
-
-    const timeStamp = new Timestamp(
-      retrievedTimeStamp.seconds,
-      retrievedTimeStamp.nanoseconds
-    );
-
-    const date = timeStamp.toDate();
-    const year = date.getFullYear(); // Get the 4-digit year
-    const month = date.getMonth() + 1; // Get the month (0-indexed, so adding 1)
-    const formattedDate = `${year}-${month.toString().padStart(2, "0")}`;
-    console.log(formattedDate);
-    setExpiryDate(formattedDate);
-
-    setQuantity(price_quantity);
-  };
-
+  const inventoryContext = useInventoryContext();
+  const { isLoading: inventoryLoading, inventory  } = inventoryContext;
+  const { quantity, expiryDate, updateSelectedItem} = useSelectedItem(inventory);
   const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
 
   return (
     <KeyboardAwareScrollView>
       <View className="bg-secondary h-screen">
         <Spinner
-          visible={isLoading}
+          visible={inventoryLoading}
           textContent={"Loading..."}
           textStyle={{ color: "#FFF" }}
         />
@@ -128,7 +42,7 @@ export default function BuyTab() {
             <SelectList
               data={inventorySelectList}
               save="value"
-              setSelected={selectedItem}
+              setSelected={updateSelectedItem}
             />
           </View>
           <View className="flex items-center justify-center">
