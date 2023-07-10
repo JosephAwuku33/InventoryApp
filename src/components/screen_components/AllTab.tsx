@@ -17,7 +17,7 @@ export default function AllTab() {
     <KeyboardAwareScrollView>
       <View className="flex h-screen p-4 pt-8 bg-secondary" >
         <Table borderStyle={styles.table}>
-          <Row data={tableHead} textStyle={styles.text} style={styles.head}  />
+          <Row  data={tableHead}  textStyle={styles.text} style={styles.head}  />
           <Rows data={tableData} textStyle={styles.text}  />
         </Table>
       </View>

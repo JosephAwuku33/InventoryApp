@@ -15,7 +15,7 @@ export default function UserStack() {
   return (
     <CustomerContextProvider>
       <InventoryContextProvider>
-        <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator initialRouteName="Home" >
           <Drawer.Screen
             name="Home"
             component={HomeScreen}
