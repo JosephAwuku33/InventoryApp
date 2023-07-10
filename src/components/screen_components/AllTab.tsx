@@ -15,7 +15,7 @@ export default function AllTab() {
 
   return (
     <KeyboardAwareScrollView>
-      <View style={styles.container}>
+      <View className="flex h-screen p-4 pt-8 bg-secondary" >
         <Table borderStyle={styles.table}>
           <Row data={tableHead} textStyle={styles.text} style={styles.head}  />
           <Rows data={tableData} textStyle={styles.text}  />
@@ -26,8 +26,7 @@ export default function AllTab() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#FBEAE7' },
-  head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 },
+  head: { height: 40, backgroundColor: '#f1f8ff', fontFamily: "Poppins-Regular" },
+  text: { margin: 6, fontFamily: "Poppins-Regular" },
   table: { borderWidth: 1, borderColor: '#000' },
 });
