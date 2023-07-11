@@ -10,9 +10,14 @@ import React, {
   useContext,
   ReactNode,
 } from "react";
-import { collection, getDocs, query, where  } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { db, auth } from "../../config/firebase";
-
 
 interface InventoryItem {
   id: string;
@@ -35,11 +40,9 @@ export const useInventoryData = (): InventoryContextData => {
   const inventoryCollectionRef = collection(db, "Inventory");
   const [isLoading, setIsLoading] = useState(true);
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  
-  
 
   useEffect(() => {
-    const getInventory = async () => {
+    /*const getInventory = async () => {
       try {
         const queryDB = query(inventoryCollectionRef, where('userId', '==', userId));
         const inventoryData = await getDocs(queryDB);
@@ -58,11 +61,27 @@ export const useInventoryData = (): InventoryContextData => {
     if ( userId ){
       getInventory();
     }
+    */
+    const queryDB = query(inventoryCollectionRef, where('userId', '==', userId));
+    const unsubscribe = onSnapshot(queryDB, (snapshot) => {
+      try {
+        const inventoryArray = snapshot.docs.map((doc) => doc.data() as InventoryItem);
+        setInventory(inventoryArray);
+        console.log(inventoryArray);
+        
+      } catch (error) {
+        console.error('Error occurred while processing snapshot:', error);
+        // Handle the error appropriately (e.g., show an error message)
+      } finally {
+        setIsLoading(false);
+      }
+    });
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
   }, [userId]);
 
   return { isLoading, inventory };
 };
-
 
 export const useInventoryContext = (): InventoryContextData => {
   const context = useContext(InventoryContext);
@@ -76,15 +95,15 @@ export const useInventoryContext = (): InventoryContextData => {
 
 //interface for Props
 interface Props {
-    children?: ReactNode
+  children?: ReactNode;
 }
 
-export const InventoryContextProvider = ({ children } : Props) => {
-    const inventoryData = useInventoryData();
-  
-    return (
-      <InventoryContext.Provider value={inventoryData}>
-        {children}
-      </InventoryContext.Provider>
-    );
-  };
+export const InventoryContextProvider = ({ children }: Props) => {
+  const inventoryData = useInventoryData();
+
+  return (
+    <InventoryContext.Provider value={inventoryData}>
+      {children}
+    </InventoryContext.Provider>
+  );
+};

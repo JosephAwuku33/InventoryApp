@@ -11,7 +11,7 @@ interface InventoryItem {
 
 const useSelectedItem = (inventory: InventoryItem[]) => {
     const [selected, setSelected] = useState<string>('');
-    const [expiryDate, setExpiryDate] = useState<string>('');
+    const [expiryDate, setExpiryDate] = useState<string[]>([]);
     const [quantity, setQuantity] = useState<number[]>([]);
   
     const updateSelectedItem = (selectedItemName: string) => {
@@ -36,7 +36,7 @@ const useSelectedItem = (inventory: InventoryItem[]) => {
       const formattedDate = `${year}-${month.toString().padStart(2, '0')}`;
       console.log(formattedDate);
       */
-      setExpiryDate(expiry_dated[0]);
+      setExpiryDate(expiry_dated);
   
       setQuantity(price_quantity);
     };

@@ -12,6 +12,7 @@ export default function BuyTab() {
   const { quantity, expiryDate, updateSelectedItem} = useSelectedItem(inventory);
   const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
 
+  {console.log(expiryDate)}
   return (
     <KeyboardAwareScrollView>
       <View className="bg-secondary h-screen">
@@ -60,9 +61,10 @@ export default function BuyTab() {
           <TextInput
             placeholder="Expiry Date"
             editable={false}
-            value={expiryDate}
+            value={expiryDate.toString()}
             className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
           />
+         
           <View className="flex items-center justify-center">
             <TouchableOpacity>
               <Text

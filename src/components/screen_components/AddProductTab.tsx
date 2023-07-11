@@ -1,24 +1,51 @@
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { db } from "../../../config/firebase";
+import { db, auth } from "../../../config/firebase";
+import Spinner from "react-native-loading-spinner-overlay";
+import { collection, addDoc } from "firebase/firestore";
 
 export default function AddProductTab() {
-  const [ productName, setproductName] = useState<string>("");
-  const [ price, setPrice] = useState<number>(0);
-  const [ expiryDate, setExpiryDate ] = useState<string>();
+  const userId = auth.currentUser?.uid;
+  const [productName, setproductName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [price, setPrice] = useState<number>(0);
+  const [expiryDate, setExpiryDate] = useState<string>();
+  const inventoryCollectionRef = collection(db, "Inventory");
 
-  const addToInventory = (name: string, price: number, expiryDate: string | undefined): any => {
-     try {
-
-     } catch (error) {
-      console.log('Error adding item', error);
-     }
-  }
+  const addToInventory = async () => {
+    setLoading(true);
+    try {
+      await addDoc(inventoryCollectionRef, {
+        expiryDate: expiryDate,
+        name: productName,
+        price: price,
+        userId: userId,
+      });
+      ToastAndroid.show("Successfully added to Inventory", ToastAndroid.LONG);
+    } catch (error) {
+      console.log("Error adding item", error);
+      ToastAndroid.show("Error adding item", ToastAndroid.LONG);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAwareScrollView>
+      <Spinner
+        visible={loading}
+        textContent={"Adding item to inventory..."}
+        textStyle={{ color: "#FFF" }}
+      />
       <View className="flex h-screen bg-secondary">
         <View className="flex items-center">
           <Image
@@ -34,7 +61,7 @@ export default function AddProductTab() {
           <TextInput
             placeholder="Product Name"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
-            onChangeText={(val) => setproductName(val) }
+            onChangeText={(val) => setproductName(val)}
           />
           <TextInput
             keyboardType="numeric"
@@ -45,8 +72,9 @@ export default function AddProductTab() {
               if (isNaN(parsedNumber)) {
                 return;
               }
-          
-              setPrice(parsedNumber);}}
+
+              setPrice(parsedNumber);
+            }}
           />
           <TextInput
             keyboardType="number-pad"
@@ -54,7 +82,7 @@ export default function AddProductTab() {
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
             onChangeText={(val) => setExpiryDate(val)}
           />
-          <TouchableOpacity onPress={addToInventory(productName, price, expiryDate)}>
+          <TouchableOpacity onPress={addToInventory}>
             <Text
               style={{ fontFamily: "Poppins-Regular" }}
               className="text-center text-primary text-sm"

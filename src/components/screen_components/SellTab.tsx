@@ -58,7 +58,7 @@ export default function SellTab() {
           />
           <TextInput
             placeholder="Expiry Date"
-            value={expiryDate}
+            value={expiryDate.toString()}
             editable={false}
             className="bg-white text-black rounded-full border-2 border-primary p-1 text-center"
           />
