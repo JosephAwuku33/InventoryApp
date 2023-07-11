@@ -11,13 +11,13 @@ export default function AllTab() {
   const inventoryContext = useInventoryContext();
   const { inventory } = inventoryContext;
   const tableData = inventory.map(item => [item.name, item.price.toString()]);
-  LogBox.ignoreLogs(['Invalid prop textStyle of type array supplied to Cell']);
+  LogBox.ignoreLogs(['Invalid prop textStyle of type array supplied to Cell, expected object Cell']);
 
   return (
     <KeyboardAwareScrollView>
       <View className="flex h-screen p-4 pt-8 bg-secondary" >
         <Table borderStyle={styles.table}>
-          <Row  data={tableHead}  textStyle={styles.text} style={styles.head}  />
+          <Row  data={tableHead} textStyle={styles.text} style={styles.head}  />
           <Rows data={tableData} textStyle={styles.text}  />
         </Table>
       </View>

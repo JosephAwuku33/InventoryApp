@@ -5,7 +5,7 @@ interface InventoryItem {
   id: string;
   name: string;
   price: number;
-  expiry_date: Date;
+  expiry_date: string;
 }
 
 
@@ -22,7 +22,8 @@ const useSelectedItem = (inventory: InventoryItem[]) => {
       );
       const price_quantity = filteredInventory.map((item) => item.price);
       const expiry_dated = filteredInventory.map((item) => item.expiry_date);
-      const retrievedTimeStamp = expiry_dated[0] as unknown as Timestamp;
+      
+      /*const retrievedTimeStamp = expiry_dated[0] as unknown as Timestamp;
   
       const timeStamp = new Timestamp(
         retrievedTimeStamp.seconds,
@@ -34,7 +35,8 @@ const useSelectedItem = (inventory: InventoryItem[]) => {
       const month = date.getMonth() + 1; // Get the month (0-indexed, so adding 1)
       const formattedDate = `${year}-${month.toString().padStart(2, '0')}`;
       console.log(formattedDate);
-      setExpiryDate(formattedDate);
+      */
+      setExpiryDate(expiry_dated[0]);
   
       setQuantity(price_quantity);
     };

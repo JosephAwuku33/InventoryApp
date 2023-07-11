@@ -8,7 +8,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function Inventory() {
   return (
-      <Tab.Navigator initialRouteName="AllTab" screenOptions={{
+      <Tab.Navigator initialRouteName="AddProductTab" screenOptions={{
          tabBarLabelStyle: {
           color: "#ffffff",
           fontFamily: 'Poppins-Regular',
@@ -17,9 +17,10 @@ export default function Inventory() {
           backgroundColor: "#552619"
          }
       }}>
+          <Tab.Screen name="AddProductTab" component={AddProductTab} options={{tabBarLabel: "Add"}}/>
           <Tab.Screen name="AllTab" component={AllTab} options={{tabBarLabel: "All"}}  />
           <Tab.Screen name="NearExpiryTab" component={NearExpiryTab} options={{tabBarLabel: "Near Expiry"}}/>
-          <Tab.Screen name="AddProductTab" component={AddProductTab} options={{tabBarLabel: "Add"}}/>
+          
       </Tab.Navigator>
   );
 }

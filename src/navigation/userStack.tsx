@@ -8,14 +8,28 @@ import CustomFontAwesomeIcon from "../components/icons/FontAwesome";
 import CustomIonIcon from "../components/icons/IonIcon";
 import { CustomerContextProvider } from "../context/CustomerContext";
 import { InventoryContextProvider } from "../context/InventoryContext";
+import { ProfileButton } from "../components/screen_components/ProfileButton";
+import Profile from "../pages/Profile";
 
 const Drawer = createDrawerNavigator();
 
+
 export default function UserStack() {
+
+
   return (
     <CustomerContextProvider>
       <InventoryContextProvider>
-        <Drawer.Navigator initialRouteName="Home" >
+        <Drawer.Navigator
+          initialRouteName="Home"     
+          screenOptions={{
+            headerRight() {
+              return (
+                <ProfileButton />
+              );
+            },
+          }}
+        >
           <Drawer.Screen
             name="Home"
             component={HomeScreen}
@@ -55,6 +69,22 @@ export default function UserStack() {
               drawerIcon: ({ color, size }) => (
                 <CustomFontAwesomeIcon
                   name="file-invoice-dollar"
+                  size={size}
+                  color={(color = "#552619")}
+                />
+              ),
+              headerTintColor: "#ffffff",
+              headerStyle: { backgroundColor: "#552619" },
+              drawerLabelStyle: { color: "#552619" },
+            }}
+          />
+          <Drawer.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              drawerIcon: ({ color, size }) => (
+                <CustomIonIcon
+                  name="person-circle-outline"
                   size={size}
                   color={(color = "#552619")}
                 />
