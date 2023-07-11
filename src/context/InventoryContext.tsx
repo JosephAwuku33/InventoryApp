@@ -18,7 +18,7 @@ interface InventoryItem {
   id: string;
   name: string;
   price: number;
-  expiry_date: Date;
+  expiry_date: string;
 }
 
 interface InventoryContextData {
