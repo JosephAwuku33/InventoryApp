@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, LogBox } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Table, Row, Rows } from "react-native-table-component";
 import { useInventoryContext } from "../../context/InventoryContext";
@@ -11,7 +11,7 @@ export default function AllTab() {
   const inventoryContext = useInventoryContext();
   const { inventory } = inventoryContext;
   const tableData = inventory.map(item => [item.name, item.price.toString()]);
-  
+  LogBox.ignoreLogs(['Invalid prop textStyle of type array supplied to Cell']);
 
   return (
     <KeyboardAwareScrollView>

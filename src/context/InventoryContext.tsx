@@ -10,8 +10,8 @@ import React, {
   useContext,
   ReactNode,
 } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { collection, getDocs, query, where  } from "firebase/firestore";
+import { db, auth } from "../../config/firebase";
 
 
 interface InventoryItem {
@@ -31,6 +31,7 @@ const InventoryContext = createContext<InventoryContextData | undefined>(
 );
 
 export const useInventoryData = (): InventoryContextData => {
+  const userId = auth.currentUser?.uid;
   const inventoryCollectionRef = collection(db, "Inventory");
   const [isLoading, setIsLoading] = useState(true);
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
@@ -40,7 +41,8 @@ export const useInventoryData = (): InventoryContextData => {
   useEffect(() => {
     const getInventory = async () => {
       try {
-        const inventoryData = await getDocs(inventoryCollectionRef);
+        const queryDB = query(inventoryCollectionRef, where('userId', '==', userId));
+        const inventoryData = await getDocs(queryDB);
         const inventoryArray = inventoryData.docs.map(
           (doc) => doc.data() as InventoryItem
         );
@@ -53,8 +55,10 @@ export const useInventoryData = (): InventoryContextData => {
       }
     };
 
-    getInventory();
-  }, []);
+    if ( userId ){
+      getInventory();
+    }
+  }, [userId]);
 
   return { isLoading, inventory };
 };
