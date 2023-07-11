@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext, ReactNode } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db, auth } from "../../config/firebase";
 
 interface Customer {
   id: string;
@@ -21,10 +21,12 @@ const useCustomerData = () : CustomerContextData => {
   const [customers, setCustomers] = useState<Customer[]>([]);
 
   useEffect(() => {
+    const userId = auth.currentUser?.uid;
     const customerCollectionRef = collection(db, 'customer');
+    const queryDB = query(customerCollectionRef, where('userId', '==', userId));
     const getCustomers = async () => {
         try {
-          const customerData = await getDocs(customerCollectionRef);
+          const customerData = await getDocs(queryDB);
           const customersArray = customerData.docs.map(
             (doc) => doc.data() as Customer
           );
