@@ -12,7 +12,6 @@ import React, {
 } from "react";
 import {
   collection,
-  getDocs,
   query,
   where,
   onSnapshot,
@@ -23,7 +22,7 @@ interface InventoryItem {
   id: string;
   name: string;
   price: number;
-  expiry_date: string;
+  expiryDate: string;
 }
 
 interface InventoryContextData {
@@ -41,27 +40,8 @@ export const useInventoryData = (): InventoryContextData => {
   const [isLoading, setIsLoading] = useState(true);
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
 
-  useEffect(() => {
-    /*const getInventory = async () => {
-      try {
-        const queryDB = query(inventoryCollectionRef, where('userId', '==', userId));
-        const inventoryData = await getDocs(queryDB);
-        const inventoryArray = inventoryData.docs.map(
-          (doc) => doc.data() as InventoryItem
-        );
-        setInventory(inventoryArray);
-        console.log(inventoryArray);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
-    if ( userId ){
-      getInventory();
-    }
-    */
+  useEffect(() => {
     const queryDB = query(inventoryCollectionRef, where('userId', '==', userId));
     const unsubscribe = onSnapshot(queryDB, (snapshot) => {
       try {
