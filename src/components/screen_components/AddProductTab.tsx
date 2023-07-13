@@ -5,8 +5,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ToastAndroid,
 } from "react-native";
+import Toast from "react-native-root-toast";
 import { TextInput } from "react-native-gesture-handler";
 import { db, auth } from "../../../config/firebase";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -29,10 +29,14 @@ export default function AddProductTab() {
         price: price,
         userId: userId,
       });
-      ToastAndroid.show("Successfully added to Inventory", ToastAndroid.LONG);
+      Toast.show('Inventory item added successfully', {
+        duration: Toast.durations.SHORT,
+      });
     } catch (error) {
       console.log("Error adding item", error);
-      ToastAndroid.show("Error adding item", ToastAndroid.LONG);
+      Toast.show('Error adding item', {
+        duration: Toast.durations.LONG,
+      });
       setLoading(false);
     } finally {
       setLoading(false);

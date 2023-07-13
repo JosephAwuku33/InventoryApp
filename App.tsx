@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import RootNavigation from './src/navigation';
 import './config/firebase';
 import { useFonts } from "expo-font";
-
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 
  
@@ -16,7 +16,9 @@ export default function App() {
     }
 
    return (
-      <RootNavigation/>
+      <RootSiblingParent>
+         <RootNavigation/>
+      </RootSiblingParent>
    )
 }
 
