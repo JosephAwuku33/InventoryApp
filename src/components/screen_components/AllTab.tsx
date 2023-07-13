@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, LogBox } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Table, Row, Rows } from "react-native-table-component";
+import { Table, Row, Rows } from "react-native-reanimated-table";
 import { useInventoryContext } from "../../context/InventoryContext";
 import Spinner from "react-native-loading-spinner-overlay";
 
