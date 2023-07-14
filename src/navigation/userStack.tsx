@@ -6,8 +6,8 @@ import Transactions from "../pages/Transactions";
 import CustomAntIcon from "../components/icons/AntIcon";
 import CustomFontAwesomeIcon from "../components/icons/FontAwesome";
 import CustomIonIcon from "../components/icons/IonIcon";
-import { CustomerContextProvider } from "../context/CustomerContext";
 import { InventoryContextProvider } from "../context/InventoryContext";
+import { PurchaseInventoryContextProvider } from "../context/PurchaseContext";
 import { ProfileButton } from "../components/screen_components/ProfileButton";
 import Profile from "../pages/Profile";
 
@@ -18,7 +18,7 @@ export default function UserStack() {
 
 
   return (
-    <CustomerContextProvider>
+    <PurchaseInventoryContextProvider>
       <InventoryContextProvider>
         <Drawer.Navigator
           initialRouteName="Home"     
@@ -96,6 +96,6 @@ export default function UserStack() {
           />
         </Drawer.Navigator>
       </InventoryContextProvider>
-    </CustomerContextProvider>
+    </PurchaseInventoryContextProvider>
   );
 }
