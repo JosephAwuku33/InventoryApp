@@ -44,7 +44,7 @@ export default function SellTab() {
         price: quantity[0],
         productName: selected,
         purchaseDate: new Date(),
-        status: "Buy",
+        status: "Sell",
       });
       Toast.show("Transaction completed successfully", {
         duration: Toast.durations.SHORT,
