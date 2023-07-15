@@ -38,8 +38,9 @@ export default function BuyTab() {
     setLoading(true);
     try {
       await addDoc(purchaseCollectionRef, {
-        id: userId,
+        userId: userId,
         customerName,
+        customerAddress: address,
         customerNumber: phoneNumber,
         price: quantity[0],
         productName: selected,

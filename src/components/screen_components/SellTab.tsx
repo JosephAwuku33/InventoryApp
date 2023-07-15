@@ -38,7 +38,8 @@ export default function SellTab() {
     setLoading(true);
     try {
       await addDoc(purchaseCollectionRef, {
-        id: userId,
+        userId: userId,
+        customerAddress: address,
         customerName,
         customerNumber: phoneNumber,
         price: quantity[0],

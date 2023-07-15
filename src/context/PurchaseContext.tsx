@@ -13,7 +13,7 @@ interface PurchaseInventoryItem {
   customerName: string;
   customerNumber: string;
   price: number;
-  proudctName: string;
+  productName: string;
   purchaseDate: Date;
   status: string;
 }
