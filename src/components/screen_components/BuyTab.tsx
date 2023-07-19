@@ -14,31 +14,39 @@ export default function BuyTab() {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [validationMessage, setValidationMessage] = useState<string>("");
-  const [numberOfItems, setNumberOfItems ] = useState<number>(0);
+  const [numberOfItemsStock, setNumberOfItemsStock] = useState<number>(0);
   const [loading, setLoading] = useState(false);
 
   const userId = auth.currentUser?.uid;
   const inventoryContext = useInventoryContext();
   const { inventory } = inventoryContext;
-  const { quantity, expiryDate, updateSelectedItem, selected } =
+  const { quantity, expiryDate, updateSelectedItem, selected, numberOfItems } =
     useSelectedItem(inventory);
   const purchaseCollectionRef = collection(db, "Purchase");
   const inventorySelectList = [...inventory.map((inventory) => inventory.name)];
 
   const addPurchaseInventory = async () => {
     if (
-      customerName == " " ||
-      phoneNumber == " " ||
-      address == " " ||
-      selected == " " 
+      customerName === " " ||
+      phoneNumber === " " ||
+      address === " " ||
+      selected === " "
     ) {
       setValidationMessage("Required field missing");
       return;
     }
 
-    if ( numberOfItems <= 0 ) {
-      setValidationMessage("Number of Items field invalid")
+    if (numberOfItemsStock <= 0 ) {
+      setValidationMessage("Number of Items field invalid");
+      return;
     }
+
+    if ( numberOfItemsStock > numberOfItems[0] ){
+       setValidationMessage("Number of Items currently in inventory is less than what you wrote");
+       return;
+    }
+
+
 
     setLoading(true);
     try {
@@ -48,7 +56,7 @@ export default function BuyTab() {
         customerAddress: address,
         customerNumber: phoneNumber,
         price: quantity[0],
-        numberOfItems: numberOfItems,
+        numberOfItems: numberOfItemsStock,
         productName: selected,
         purchaseDate: new Date(),
         status: "Buy",
@@ -68,7 +76,7 @@ export default function BuyTab() {
       setAddress("");
       setPhoneNumber("");
       setValidationMessage("");
-      setNumberOfItems(0);
+      setNumberOfItemsStock(0);
     }
   };
 
@@ -81,7 +89,9 @@ export default function BuyTab() {
           textStyle={{ color: "#FFF" }}
         />
         <View className="flex items-center mt-3">
-          <Text style={{ fontFamily: "Poppins-Regular" }}>Buy Items</Text>
+          <Text className="text-center  text-black text-sm">
+            {validationMessage}
+          </Text>
         </View>
         <View className="flex flex-col justify-center p-6 gap-6 mb-2">
           <View className=" flex items-center border-primary border-2 mb-2" />
@@ -131,7 +141,8 @@ export default function BuyTab() {
                 return;
               }
 
-              setNumberOfItems(parsedNumber);}}
+              setNumberOfItemsStock(parsedNumber);
+            }}
           />
           <TextInput
             placeholder="Expiry Date"
@@ -139,8 +150,8 @@ export default function BuyTab() {
             value={expiryDate.toString()}
             className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
           />
-          <Text className="mt-2 text-black text-sm">{validationMessage}</Text>
-          <View className="flex items-center justify-center">
+
+          <View className="flex items-center justify-center mb-4">
             <TouchableOpacity
               className="bg-primary mt-2 px-20 py-2 rounded-full"
               onPress={addPurchaseInventory}
