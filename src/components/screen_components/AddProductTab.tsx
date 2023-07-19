@@ -13,7 +13,7 @@ export default function AddProductTab() {
   const [productName, setproductName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [price, setPrice] = useState<number>(0);
-  const [expiryDate, setExpiryDate] = useState<string>();
+  const [expiryDate, setExpiryDate] = useState<string>("");
   const [numberOfItems, setNumberOfItems] = useState<number>(0);
   const [validateExpiryDate, setValidateExpiryDate] = useState<string>("")
   const inventoryCollectionRef = collection(db, "Inventory");
@@ -51,6 +51,7 @@ export default function AddProductTab() {
       setExpiryDate("");
       setPrice(0);
       setNumberOfItems(0);
+      setValidateExpiryDate("")
     }
   };
 
@@ -95,12 +96,6 @@ export default function AddProductTab() {
             keyboardType="number-pad"
             placeholder="Number of Items being bought"
             className="bg-white rounded-full border-2 border-primary p-1 text-center"
-            onChangeText={(val) => setExpiryDate(val)}
-          />
-          <TextInput
-            keyboardType="number-pad"
-            placeholder="Expiry Date in format yyyy-mm"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
             onChangeText={(text: string) => {
               const parsedNumber = Number(text);
               if (isNaN(parsedNumber)) {
@@ -109,6 +104,12 @@ export default function AddProductTab() {
 
               setNumberOfItems(parsedNumber);
             }}
+          />
+          <TextInput
+            keyboardType="number-pad"
+            placeholder="Expiry Date in format yyyy-mm"
+            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            onChangeText={(val) => setExpiryDate(val)}
           />
           <Text className="mt-1 text-center text-black text-sm">{validateExpiryDate}</Text>
           
