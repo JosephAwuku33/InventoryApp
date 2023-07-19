@@ -21,6 +21,7 @@ export default function AddProductTab() {
 
 
   const addToInventory = async () => {
+    
     if (!validateExpiryDatePattern(expiryDate)){
         setValidateExpiryDate("Expiry Date should be in yyyy-mm format");
         return;
@@ -109,7 +110,7 @@ export default function AddProductTab() {
               setNumberOfItems(parsedNumber);
             }}
           />
-          <Text className="mt-1 text-black text-sm">{validateExpiryDate}</Text>
+          <Text className="mt-1 text-center text-black text-sm">{validateExpiryDate}</Text>
           
           <TouchableOpacity onPress={addToInventory}>
             <Text
