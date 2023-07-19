@@ -14,6 +14,7 @@ export default function BuyTab() {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [validationMessage, setValidationMessage] = useState<string>("");
+  const [numberOfItems, setNumberOfItems ] = useState<number>(0);
   const [loading, setLoading] = useState(false);
 
   const userId = auth.currentUser?.uid;
@@ -29,10 +30,14 @@ export default function BuyTab() {
       customerName == " " ||
       phoneNumber == " " ||
       address == " " ||
-      selected == " "
+      selected == " " 
     ) {
       setValidationMessage("Required field missing");
       return;
+    }
+
+    if ( numberOfItems <= 0 ) {
+      setValidationMessage("Number of Items field invalid")
     }
 
     setLoading(true);
@@ -43,6 +48,7 @@ export default function BuyTab() {
         customerAddress: address,
         customerNumber: phoneNumber,
         price: quantity[0],
+        numberOfItems: numberOfItems,
         productName: selected,
         purchaseDate: new Date(),
         status: "Buy",
@@ -58,6 +64,11 @@ export default function BuyTab() {
       setLoading(false);
     } finally {
       setLoading(false);
+      setCustomerName("");
+      setAddress("");
+      setPhoneNumber("");
+      setValidationMessage("");
+      setNumberOfItems(0);
     }
   };
 
@@ -104,11 +115,23 @@ export default function BuyTab() {
             </Text>
           </View>
           <TextInput
-            placeholder="Quantity"
+            placeholder="Price"
             keyboardType="numeric"
             className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
             value={quantity.toString()}
             editable={false}
+          />
+          <TextInput
+            placeholder="Number of items"
+            keyboardType="numeric"
+            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
+            onChangeText={(text: string) => {
+              const parsedNumber = Number(text);
+              if (isNaN(parsedNumber)) {
+                return;
+              }
+
+              setNumberOfItems(parsedNumber);}}
           />
           <TextInput
             placeholder="Expiry Date"

@@ -12,10 +12,12 @@ interface PurchaseInventoryItem {
   id: string;
   customerName: string;
   customerNumber: string;
+  customerAddress: string;
   price: number;
   productName: string;
   purchaseDate: Date;
   status: string;
+  numberOfItems: number;
 }
 
 interface PurchaseInventoryItemData {

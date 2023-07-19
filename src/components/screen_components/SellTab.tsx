@@ -13,6 +13,7 @@ export default function SellTab() {
   const [customerName, setCustomerName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [numberOfItems, setNumberOfItems ] = useState<number>(0);
   const [validationMessage, setValidationMessage] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
@@ -35,12 +36,17 @@ export default function SellTab() {
       return;
     }
 
+    if ( numberOfItems <= 0 ) {
+      setValidationMessage("Number of Items field invalid")
+    }
+
     setLoading(true);
     try {
       await addDoc(purchaseCollectionRef, {
         userId: userId,
         customerAddress: address,
         customerName,
+        numberOfItems: numberOfItems,
         customerNumber: phoneNumber,
         price: quantity[0],
         productName: selected,
@@ -58,6 +64,10 @@ export default function SellTab() {
       setLoading(false);
     } finally {
       setLoading(false);
+      setCustomerName("");
+      setAddress("");
+      setPhoneNumber("");
+      setValidationMessage("");
     }
   };
 
@@ -107,6 +117,18 @@ export default function SellTab() {
             className="bg-white text-black rounded-full border-2 border-primary p-1 text-center"
             editable={false}
             value={quantity.toString()}
+          />
+          <TextInput
+            placeholder="Number of items"
+            keyboardType="numeric"
+            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
+            onChangeText={(text: string) => {
+              const parsedNumber = Number(text);
+              if (isNaN(parsedNumber)) {
+                return;
+              }
+
+              setNumberOfItems(parsedNumber);}}
           />
           <TextInput
             placeholder="Expiry Date"
