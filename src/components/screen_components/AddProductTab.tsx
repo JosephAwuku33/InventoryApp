@@ -26,6 +26,16 @@ export default function AddProductTab() {
         setValidateExpiryDate("Expiry Date should be in yyyy-mm format");
         return;
     }
+
+    if ( price <= 0 || numberOfItems <= 0){
+      setValidateExpiryDate("Values cannot be 0 or less than zero")
+      return;
+    }
+
+    if ( productName === " "){
+      setValidateExpiryDate("Required field missing")
+      return;
+    }
     
     setLoading(true);
     try {
@@ -39,6 +49,10 @@ export default function AddProductTab() {
       Toast.show("Inventory item added successfully", {
         duration: Toast.durations.SHORT,
       });
+      setproductName("");
+      setExpiryDate("");
+      setPrice(0);
+      setNumberOfItems(0);
     } catch (error) {
       console.log("Error adding item", error);
       Toast.show("Error adding item", {
