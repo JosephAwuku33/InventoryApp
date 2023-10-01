@@ -46,13 +46,14 @@ export default function AddProductTab() {
         numberOfItems: numberOfItems,
         userId: userId,
       });
-      Toast.show("Inventory item added successfully", {
-        duration: Toast.durations.SHORT,
-      });
       setproductName("");
       setExpiryDate("");
       setPrice(0);
       setNumberOfItems(0);
+      Toast.show("Inventory item added successfully", {
+        duration: Toast.durations.SHORT,
+      });
+     
     } catch (error) {
       console.log("Error adding item", error);
       Toast.show("Error adding item", {
@@ -61,11 +62,6 @@ export default function AddProductTab() {
       setLoading(false);
     } finally {
       setLoading(false);
-      setproductName("");
-      setExpiryDate("");
-      setPrice(0);
-      setNumberOfItems(0);
-      setValidateExpiryDate("")
     }
   };
 

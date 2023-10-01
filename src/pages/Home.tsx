@@ -33,6 +33,7 @@ export default function HomeScreen() {
     label: item_name[index],
   }));
 
+  console.log(barData);
   return (
     <KeyboardAwareScrollView>
       <Spinner
@@ -40,16 +41,16 @@ export default function HomeScreen() {
         textContent={"Checking Inventory..."}
         textStyle={{ color: "#FFF" }}
       />
-      <Text className="flex justify-center text-center text-primary text-lg mt-2">
+      <Text className=" text-center text-primary text-lg mt-2">
           Item against Cost Price of Stock
         </Text>
-      <View style={{ flex: 1, flexDirection: "row", paddingVertical: 16, padding: 25 }}>
+      <View style={{  flexDirection: "row" , alignSelf: "flex-start", height: 300,   paddingVertical: 16, padding: 10 }}>
         <YAxis
           data={flattened_TCP}
           contentInset={{ top: 20, bottom: 20 }}
           svg={{
             fill: "grey",
-            fontSize: 10,
+            fontSize: 6.5,
           }}
           numberOfTicks={10}
           formatLabel={(value) => `${value}`}
@@ -63,15 +64,17 @@ export default function HomeScreen() {
             contentInset={{ top: 20, bottom: 20 }}
             spacingInner={0.2}
             spacingOuter={0.2}
+            animate={true}
+            animationDuration={500}
           >
             <Grid />
           </BarChart>
           <XAxis
-            style={{ marginHorizontal: -10, height: 30 }}
+            style={{ marginHorizontal: 10, height: 30 }}
             data={barData}
             formatLabel={(value, index) => item_name[index]}
             contentInset={{ left: 20, right: 20 }}
-            svg={{ fontSize: 10, fill: "black" }}
+            svg={{ fontSize: 6.5, fill: "black" }}
           />
         </View>
       </View>
