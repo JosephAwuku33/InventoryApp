@@ -94,23 +94,23 @@ export default function BuyTab() {
           </Text>
         </View>
         <View className="flex flex-col justify-center p-6 gap-6 mb-2">
-          <View className=" flex items-center border-primary border-2 mb-2" />
+          <View className=" flex items-center border-main border-2 mb-2" />
           <TextInput
             placeholder="Customer Name"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(text) => setCustomerName(text)}
           />
           <TextInput
             placeholder="Phone Number"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(text) => setPhoneNumber(text)}
           />
           <TextInput
             placeholder="Address"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(text) => setAddress(text)}
           />
-          <View className=" flex items-center border-primary border-2 mb-4" />
+          <View className=" flex items-center border-main border-2 mb-4" />
 
           <View>
             <SelectList
@@ -127,14 +127,14 @@ export default function BuyTab() {
           <TextInput
             placeholder="Price"
             keyboardType="numeric"
-            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
+            className="bg-white rounded-full border-2 border-main text-black p-1 text-center"
             value={quantity.toString()}
             editable={false}
           />
           <TextInput
             placeholder="Number of items"
             keyboardType="numeric"
-            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
+            className="bg-white rounded-full border-2 border-main text-black p-1 text-center"
             onChangeText={(text: string) => {
               const parsedNumber = Number(text);
               if (isNaN(parsedNumber)) {
@@ -148,12 +148,12 @@ export default function BuyTab() {
             placeholder="Expiry Date"
             editable={false}
             value={expiryDate.toString()}
-            className="bg-white rounded-full border-2 border-primary text-black p-1 text-center"
+            className="bg-white rounded-full border-2 border-main text-black p-1 text-center"
           />
 
           <View className="flex items-center justify-center mb-4">
             <TouchableOpacity
-              className="bg-primary mt-2 px-20 py-2 rounded-full"
+              className="bg-main mt-2 px-20 py-2 rounded-full"
               onPress={addPurchaseInventory}
             >
               <Text className="text-center text-white text-xl font-semibold ">

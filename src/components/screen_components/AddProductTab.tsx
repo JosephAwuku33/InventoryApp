@@ -80,19 +80,19 @@ export default function AddProductTab() {
           />
         </View>
         <View className="flex flex-col  justify-center p-5 gap-5 mb-2">
-          <Text className="text-lg text-center text-primary">
+          <Text className="text-lg text-center text-main">
             Add Product to Inventory
           </Text>
-          <View className=" flex items-center border-primary border-2 mb-2" />
+          <View className=" flex items-center border-main border-2 mb-2" />
           <TextInput
             placeholder="Product Name"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(val) => setproductName(val)}
           />
           <TextInput
             keyboardType="numeric"
             placeholder="Price"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(text: string) => {
               const parsedNumber = Number(text);
               if (isNaN(parsedNumber)) {
@@ -105,7 +105,7 @@ export default function AddProductTab() {
           <TextInput
             keyboardType="number-pad"
             placeholder="Number of Items being bought"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(text: string) => {
               const parsedNumber = Number(text);
               if (isNaN(parsedNumber)) {
@@ -118,7 +118,7 @@ export default function AddProductTab() {
           <TextInput
             keyboardType="number-pad"
             placeholder="Expiry Date in format yyyy-mm"
-            className="bg-white rounded-full border-2 border-primary p-1 text-center"
+            className="bg-white rounded-full border-2 border-main p-1 text-center"
             onChangeText={(val) => setExpiryDate(val)}
           />
           <Text className="mt-1 text-center text-black text-sm">{validateExpiryDate}</Text>
@@ -126,7 +126,7 @@ export default function AddProductTab() {
           <TouchableOpacity onPress={addToInventory}>
             <Text
               style={{ fontFamily: "Poppins-Regular" }}
-              className="text-center text-primary text-sm"
+              className="text-center text-main text-sm"
             >
               + Add Product
             </Text>

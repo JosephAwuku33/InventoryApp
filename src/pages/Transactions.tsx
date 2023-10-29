@@ -14,7 +14,7 @@ export default function Transactions() {
        fontFamily: "Poppins-Regular",
       },
       tabBarStyle: {
-       backgroundColor: "#552619"
+       backgroundColor: "#48086E"
       }
    }}>
        <Tab.Screen name="BuyTab" component={BuyTab} options={{tabBarLabel: "Buy"}}  />

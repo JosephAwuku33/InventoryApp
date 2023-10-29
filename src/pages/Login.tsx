@@ -31,8 +31,8 @@ function Login({ navigation }: { navigation: any }) {
   }
 
   return (
-    <SafeAreaView className="bg-primary">
-      <View className=" bg-primary h-2/6 ">
+    <SafeAreaView className="bg-main">
+      <View className=" bg-main h-2/6 ">
         <View className="p-7 my-auto mb-4">
           <Text
             className="text-white text-2xl"
@@ -45,31 +45,31 @@ function Login({ navigation }: { navigation: any }) {
       <View className=" bg-secondary h-4/6 rounded-t-[30] ">
         <View className="flex flex-row items-center justify-center gap-32 p-3 ">
           <TouchableOpacity className="flex flex-col items-center p-2">
-            <Text className="text-primary text-lg font-bold">Login</Text>
-            <View className=" w-full bg-primary h-[2]"></View>
+            <Text className="text-main text-lg font-bold">Login</Text>
+            <View className=" w-full bg-main h-[2]"></View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-            <Text className="text-primary text-lg font-bold">SignUp</Text>
+            <Text className="text-main text-lg font-bold">SignUp</Text>
           </TouchableOpacity>
         </View>
 
         <KeyboardAwareScrollView>
           <View className="flex flex-col justify-center p-4 gap-4 mb-2 ">
-            <Text className="text-primary text-lg ml-5 font-semibold">
+            <Text className="text-main text-lg ml-5 font-semibold">
               Email
             </Text>
             <TextInput
-              className="bg-white rounded-full border-2 border-primary p-1 text-center"
+              className="bg-white rounded-full border-2 border-main p-1 text-center"
               keyboardType={"email-address"}
               onChangeText={(text) => setEmail(text)}
             />
 
-            <Text className="text-primary text-lg ml-5 font-semibold">
+            <Text className="text-main text-lg ml-5 font-semibold">
               Password
             </Text>
             <TextInput
               secureTextEntry={true}
-              className="bg-white rounded-full border-2 border-primary p-1 text-center"
+              className="bg-white rounded-full border-2 border-main p-1 text-center"
               onChangeText={(text) => setPassword(text)}
             />
           </View>
@@ -82,7 +82,7 @@ function Login({ navigation }: { navigation: any }) {
               <>
                 <TouchableOpacity
                   onPress={login}
-                  className="bg-primary px-20 py-2 rounded-full"
+                  className="bg-main px-20 py-2 rounded-full"
                 >
                   <Text className="text-center text-white text-xl font-semibold">
                     Login
@@ -92,13 +92,13 @@ function Login({ navigation }: { navigation: any }) {
                 <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
                   <Text
                     style={{ fontFamily: "Poppins-Regular" }}
-                    className="text-primary text-sm"
+                    className="text-main text-sm"
                   >
                     Don’t have an account?
                   </Text>
                   <Text
                     style={{ fontFamily: "Poppins-Regular" }}
-                    className="text-primary text-sm text-center"
+                    className="text-main text-sm text-center"
                   >
                     Sign up here
                   </Text>

@@ -38,12 +38,12 @@ export default function UserStack() {
                 <CustomIonIcon
                   name="md-home"
                   size={size}
-                  color={(color = "#552619")}
+                  color={(color = "#48086E")}
                 />
               ),
               headerTintColor: "#ffffff",
-              headerStyle: { backgroundColor: "#552619" },
-              drawerLabelStyle: { color: "#552619" },
+              headerStyle: { backgroundColor: "#48086E" },
+              drawerLabelStyle: { color: "#48086E" },
             }}
           />
           <Drawer.Screen
@@ -54,12 +54,12 @@ export default function UserStack() {
                 <CustomAntIcon
                   name="bars"
                   size={size}
-                  color={(color = "#552619")}
+                  color={(color = "#48086E")}
                 />
               ),
               headerTintColor: "#ffffff",
-              headerStyle: { backgroundColor: "#552619" },
-              drawerLabelStyle: { color: "#552619" },
+              headerStyle: { backgroundColor: "#48086E" },
+              drawerLabelStyle: { color: "#48086E" },
             }}
           />
           <Drawer.Screen
@@ -70,12 +70,12 @@ export default function UserStack() {
                 <CustomFontAwesomeIcon
                   name="file-invoice-dollar"
                   size={size}
-                  color={(color = "#552619")}
+                  color={(color = "#48086E")}
                 />
               ),
               headerTintColor: "#ffffff",
-              headerStyle: { backgroundColor: "#552619" },
-              drawerLabelStyle: { color: "#552619" },
+              headerStyle: { backgroundColor: "#48086E" },
+              drawerLabelStyle: { color: "#48086E" },
             }}
           />
           <Drawer.Screen
@@ -86,12 +86,12 @@ export default function UserStack() {
                 <CustomIonIcon
                   name="person-circle-outline"
                   size={size}
-                  color={(color = "#552619")}
+                  color={(color = "#48086E")}
                 />
               ),
               headerTintColor: "#ffffff",
-              headerStyle: { backgroundColor: "#552619" },
-              drawerLabelStyle: { color: "#552619" },
+              headerStyle: { backgroundColor: "#48086E" },
+              drawerLabelStyle: { color: "#48086E" },
             }}
           />
         </Drawer.Navigator>

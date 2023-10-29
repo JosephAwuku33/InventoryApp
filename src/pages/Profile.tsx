@@ -26,7 +26,7 @@ export default function Profile() {
       <Text>{auth.currentUser?.email}</Text>
       <CustomIonIcon name="person-circle-outline" size={64} color="#552619" />
       <TouchableOpacity
-        className="bg-primary mt-2 px-20 py-2 rounded-full"
+        className="bg-main mt-2 px-20 py-2 rounded-full"
         onPress={logOut}
       >
         <Text className="text-center text-white text-xl font-semibold">

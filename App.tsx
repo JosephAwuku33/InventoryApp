@@ -1,25 +1,26 @@
-import 'react-native-gesture-handler';
-import RootNavigation from './src/navigation';
-import './config/firebase';
+import "react-native-gesture-handler";
+import RootNavigation from "./src/navigation";
+import "./config/firebase";
 import { useFonts } from "expo-font";
-import { RootSiblingParent } from 'react-native-root-siblings';
+import { RootSiblingParent } from "react-native-root-siblings";
+import { NativeWindStyleSheet } from "nativewind";
 
-
- 
 export default function App() {
-   let [fontsLoaded] = useFonts({
-      'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf')
-    });
-    
-    if (!fontsLoaded) {
-      return null;
-    }
+  NativeWindStyleSheet.setOutput({
+    default: "native",
+  });
 
-   return (
-      <RootSiblingParent>
-         <RootNavigation/>
-      </RootSiblingParent>
-   )
+  let [fontsLoaded] = useFonts({
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <RootSiblingParent>
+      <RootNavigation />
+    </RootSiblingParent>
+  );
 }
-
-

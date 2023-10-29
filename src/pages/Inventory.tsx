@@ -14,7 +14,7 @@ export default function Inventory() {
           fontFamily: 'Poppins-Regular',
          },
          tabBarStyle: {
-          backgroundColor: "#552619"
+          backgroundColor: "#48086E"
          }
       }}>
           <Tab.Screen name="AddProductTab" component={AddProductTab} options={{tabBarLabel: "Add"}}/>

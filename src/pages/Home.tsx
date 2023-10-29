@@ -41,7 +41,7 @@ export default function HomeScreen() {
         textContent={"Checking Inventory..."}
         textStyle={{ color: "#FFF" }}
       />
-      <Text className=" text-center text-primary text-lg mt-2">
+      <Text className=" text-center text-main text-lg mt-2">
           Item against Cost Price of Stock
         </Text>
       <View style={{  flexDirection: "row" , alignSelf: "flex-start", height: 300,   paddingVertical: 16, padding: 10 }}>
